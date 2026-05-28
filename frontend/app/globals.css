@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   MODULE 5: OPTIMIZED @media print STYLESHEET
+   Formats active language data for A4 browser-printed PDF.
+   Strips all UI chrome — keeps only report content.
+═══════════════════════════════════════════════════════════════ */
+@media print {
+  /* Hide all navigation and UI elements */
+  nav, .no-print, .action-bar, .lang-picker,
+  .print-tip, footer, button, a[href],
+  [data-print="hidden"] {
+    display: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 16mm 12mm;
+  }
+
+  /* Body reset for print */
+  body {
+    background: white !important;
+    color: #1a1a1a !important;
+    font-family: 'Outfit', Arial, Helvetica, sans-serif !important;
+    font-size: 10.5pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Show print-only elements */
+  .print-only { display: block !important; }
+
+  /* Force white backgrounds, dark borders */
+  .report-card, .glass, .dim-box {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    page-break-inside: avoid;
+  }
+
+  /* Report header — gold underline */
+  .report-header {
+    border-bottom: 2.5pt solid #c9a84c !important;
+    padding-bottom: 10pt !important;
+    margin-bottom: 12pt !important;
+    background: white !important;
+  }
+
+  /* Dimension boxes */
+  .dim-box {
+    background: #f8f8f8 !important;
+    text-align: center;
+    padding: 10pt 8pt;
+  }
+
+  /* Grade badge */
+  .grade-badge {
+    border: 2pt solid currentColor !important;
+    background: transparent !important;
+    padding: 2pt 10pt;
+    border-radius: 999pt;
+    font-weight: bold;
+  }
+
+  /* Data table */
+  table { width: 100% !important; border-collapse: collapse !important; }
+  th, td {
+    border: 0.5pt solid #ccc !important;
+    padding: 5pt 8pt !important;
+    font-size: 9.5pt !important;
+    text-align: left !important;
+  }
+  th { background: #f5f0e8 !important; font-weight: 600 !important; }
+  tr:nth-child(even) td { background: #fafaf8 !important; }
+
+  /* Page break control */
+  .page-break-before { page-break-before: always !important; }
+  .page-break-inside-avoid { page-break-inside: avoid !important; }
+
+  /* Confidence bars — print as text */
+  .confidence-bar { display: none !important; }
+  .confidence-text { display: inline !important; font-size: 9pt; color: #555; }
+
+  /* Disclaimer box */
+  .print-disclaimer {
+    border: 1pt solid #d4840a !important;
+    background: #fffbf0 !important;
+    color: #7a5000 !important;
+    padding: 8pt 10pt !important;
+    font-size: 8.5pt !important;
+    border-radius: 3pt !important;
+  }
+
+  /* Watermark */
+  .report-watermark {
+    position: fixed;
+    bottom: 20mm;
+    right: 15mm;
+    font-size: 8pt;
+    color: #ddd;
+    transform: rotate(-45deg);
+    letter-spacing: 2pt;
+  }
+
+  /* Images */
+  img { max-height: 180pt !important; page-break-inside: avoid; }
+
+  /* Links — show URL */
+  a::after { content: none !important; }
+
+  /* Stone image thumbnail */
+  .stone-image {
+    width: 100pt !important;
+    height: 100pt !important;
+    object-fit: cover;
+    border: 0.5pt solid #ccc;
+  }
+}
+
+/* Screen-only: hide print elements */
+@media screen {
+  .print-only { display: none; }
+  .confidence-text { display: none; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
